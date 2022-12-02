@@ -1,46 +1,75 @@
 /*Project must contain:
-    add function
-    subtract function
-    divide function
-    multiply function
+    add function- COMPLETED
+    subtract function- COMPLETED
+    divide function- COMPLETED
+    multiply function- COMPLETED
 */
 /*Notes/ideas:
     Can we store variables in an object, and read that variable later?
     Change object variables depending on if a class exists on HTML?
 */
+const numButt   = document.querySelectorAll(".number");
+const opButt    = document.querySelectorAll(".operator");
+const clearButt = document.querySelector(".allClear");
+const totalButt = document.querySelector(".tally");
+const deButt    = document.querySelector(".decimal");
+const output    = document.querySelector(".output");
+const backButt    = document.querySelector(".backspace");
 
-/**Add Function**/
-function add(array) {
-	return array.reduce((total, current) => total + current);
-};
-/**Subtract Function**/
-function subtract(array) {
-    return array.reduce((total, current) => total - current);
-};
-/**Multiply Function**/
-function multiply(array) {
-    return array.reduce((total, current) => total * current, 1);
-  };
-/**Divide Function**/
-function divide(array) {
-    return array.reduce((total, current) => total / current, 1);
-  };
+/*DEFAULT Display Output*/
+output.textContent = 0
 
-  //temporary operate function?
+/** Number Calculation Function**/
+function calculate(array, operator) {
+    if(operator === "+"){
+    	return array.reduce((total, current) => total + current);
+    }else if(operator === "-"){
+        return array.reduce((total, current) => total - current);
+    }else if(operator === "*"){
+        return array.reduce((total, current) => total * current);
+    }else if(operator === "/"){
+        return array.reduce((total, current) => total / current);
+    }
+};
+
 function operate(num1, num2, operator) {
     switch (operator) {
         case "+":
-            return add([num1, num2]);
+            return calculate([num1, num2], operator);
         case "-":
-            return subtract([num1, num2]);
+            return calculate([num1, num2], operator);
         case "*":
-            return multiply([num1, num2]);
+            return calculate([num1, num2], operator);
         case "/":
-            return divide([num1, num2]);
+            return calculate([num1, num2], operator);
     }
 };
-  
-  /*Object for staring values? */
+
+/** Button Operations **/
+numButt.forEach ((number) => {
+    number.onclick = () => {
+        if(output.textContent === "0"){
+           output.textContent = ""; 
+        }
+        output.textContent += number.textContent;
+    }
+})
+
+opButt.forEach ((operator) => {
+    operator.onclick = () => {
+        console.log(operator.textContent)
+    }
+})
+
+backButt.onclick = () => {
+    output.textContent = output.textContent
+                        .substring(0, output.textContent.length - 1)
+    if(output.textContent === ""){
+        output.textContent = 0;
+    }
+}
+
+/*Object for storing values? */
 let mathStorage = [
     {
         "first operand" : 0,
