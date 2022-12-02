@@ -27,8 +27,12 @@ body{
     display: grid;
     width: 400px;
     height: 600px;
-    gap: 2px;
+    gap: 5px;
     grid-template-columns:repeat(4, 1fr);
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-bottom: 6px;
+    padding-top: 4px;
 }
 
 .output{
@@ -58,4 +62,8 @@ button{
                 -10px -10px 45px 25px hsla(0, 0%, 70%, 80%) inset,
                 20px 20px 15px 30px hsla(0, 0%, 35%, 0.9) inset;
     border-radius: 10px;
+}
+
+button:active{
+    box-shadow: -2px -1px 4px hsla(0, 0%, 10%, 100%);
 }
