@@ -5,6 +5,10 @@
     overflow: hidden;
 }
 
+html{
+    color-scheme: dark;
+}
+
 body{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     min-height: 100vh;
@@ -14,14 +18,14 @@ body{
 }
 
 #main{
-    border: 2px solid red;
+    border: 2px solid green;
     display: grid;
     align-items: center;
     justify-content: center;
 }
 
 .wrapper{
-    background-color: hsla(0, 0%, 0%, 57%);
+    background-color: rgba(88, 88, 88, 0.57);
     border: 3px solid hsla(0, 0%, 40%, 100%);
     box-shadow: 5px 5px 30px 15px hsla(0, 0%, 35%, 0.9) inset;
     border-radius: 10px;
@@ -45,11 +49,16 @@ body{
     justify-content: center;
     min-height: 40px;
     margin-bottom: 10px;
-    background-color: hsla(160,13%,58%,50%);
+    background-color: rgba(114, 114, 114, 0.6);
     box-shadow: 2px 2px 30px 15px hsla(160, 20%, 35%, 20%) inset,
                 -4px -2px 20px 15px hsla(190, 30%, 35%, 20%) inset,
-                -4px -2px 200px 15px hsla(200, 90%, 90%, 60%) inset;
+                -4px -2px 200px 15px rgba(114, 114, 114, 0.6) inset;
 }
+
+.output > .lastOutput{
+    font-size: 18px;
+}
+
 .add{
     grid-row: 5 / 7;
     grid-column: 4 / 5;
