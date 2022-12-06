@@ -11,7 +11,6 @@
 const numButt = document.querySelectorAll(".number");
 const opButt = document.querySelectorAll(".operator");
 const clearButt = document.querySelector(".allClear");
-const totalButt = document.querySelector(".tally");
 const deButt = document.querySelector(".decimal");
 const display = document.querySelector(".currentOutput");
 const lastOutput = document.querySelector(".lastOutput");
@@ -19,9 +18,13 @@ const backButt = document.querySelector(".backspace");
 
 /*DEFAULT Display Output*/
 display.textContent = "0"
-let storage
-num1 = "";
-num2 = "";
+const storage = {
+    num1    : null,
+    num2    : null,
+    operator: null,
+}
+
+clearButt.onclick = () => (allClear());
 
 /** Number Calculation Function**/
 function calculate(array, operator) {
@@ -45,11 +48,11 @@ function operate(num1, num2, operator) {
         case "*":
             return calculate([num1, num2], operator);
         case "/":
-            if (num2 === 0) {
-                alert("You can't divide by 0.")
-                return
-            } else {
+            if (num2 !== 0) {
                 return calculate([num1, num2], operator);
+            } else {
+                allClear();
+                return
             }
     }
 };
@@ -66,20 +69,26 @@ numButt.forEach((button) => {
 
 opButt.forEach((button) => {
     button.onclick = () => {
-        // console.log(button.textContent)
-        if (lastOutput.textContent !== "") {
-            //store current output as num2 (thiis gives us num1 and num 2)
-            //operate(num1, num2, operator)
-            //console.log operate to see what is returned
-            //lastOutput.textContent = whatever operate returns
-            //store operator (assuming "=" wasn't clicked)
-            //store answer as num1
-            //return
+        if (storage.num1 !== null) {
+            storage.num2 = display.textContent;
+            lastOutput.textContent = 
+                    ((operate(+(storage.num1), +(storage.num2), storage.operator))+
+                    " " + button.textContent);
+            storage.num1 = lastOutput.textContent.slice(0, -2);
+            storage.operator = button.textContent;
+            display.textContent = "0";
+                if(storage.operator === "/" && storage.num2 === null){
+                    allClear();
+                    alert("Don't be cheeky")
+                }
+        } else if(storage.operator === "="){
+            console.log("butt push")
+            //YOU ARE HERE DUMMY. THIS IS YOUR NEXT TASK
         } else {
-            lastOutput.textContent = (display.textContent + " " + button.textContent)
-            //store operator
-            //store num1
-            display.textContent = "0"
+            lastOutput.textContent = (display.textContent + " " + button.textContent);
+            storage.operator = button.textContent;
+            storage.num1 = display.textContent;
+            display.textContent = "0";
         }
     }
 })
@@ -91,6 +100,10 @@ backButt.onclick = () => {
     }
 }
 
-clearButt.onclick = () => {
-    window.location.reload();
+function allClear() {
+        storage.num1 = null;
+        storage.num2 = null;
+        display.textContent = "0";
+        lastOutput.textContent = "";
 }
+
