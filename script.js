@@ -1,13 +1,3 @@
-/*Project must contain:
-    add function- COMPLETED
-    subtract function- COMPLETED
-    divide function- COMPLETED
-    multiply function- COMPLETED
-*/
-/*Notes/ideas:
-    Can we store variables in an object, and read that variable later?
-    Change object variables depending on if a class exists on HTML?
-*/
 const numButt = document.querySelectorAll(".number");
 const opButt = document.querySelectorAll(".operator");
 const clearButt = document.querySelector(".allClear");
@@ -34,6 +24,7 @@ const storage = {
         }
     },
 }
+
 /** Number Calculations **/
 function calculate(array, operator) {
     if (operator === "+") {
@@ -70,14 +61,14 @@ function storeTheInformation(){
         lastOutput.textContent =  storage.total;
         display.textContent = 0;
         storage.num1 = lastOutput.textContent;
+     
         if(+(storage.num2) === 0 && storage.operator === "/") {
-                alert("That's cute. You can't divide by 0.");
-                allClear();
+            alert("That's cute. You can't divide by 0.");
+            allClear();
         }else {
             storage.num2 = null;
         }
-    }
-    console.log(storage)
+    }// console.log(storage)
 }
 
 /** Button Operations **/
@@ -115,8 +106,8 @@ opButt.forEach((button) => {
 })
 
 tallyButt.onclick = () => {
-    tallyAll = true
-    if(storage.operator !== null){
+    tallyAll = true;
+    if(storage.operator !== null) {
         storeTheInformation();
         display.textContent = storage.num1;
         storage.num1 = null;
@@ -132,7 +123,7 @@ backButt.onclick = () => {
 }
 
 deButt.onclick = () => {
-    if(display.textContent.match(/\./i)){
+    if(display.textContent.match(/\./i)) {
         return;
     }else{
         display.textContent += ".";
