@@ -15,10 +15,13 @@ const deButt = document.querySelector(".decimal");
 const display = document.querySelector(".currentOutput");
 const lastOutput = document.querySelector(".lastOutput");
 const backButt = document.querySelector(".backspace");
+const tallyButt = document.querySelector(".tally");
 
 /*DEFAULT Display Output*/
 display.textContent = 0;
-lastOutput.textContent = 0;
+lastOutput.textContent = "-";
+tallyAll = false;
+
 const storage = {
     num1    : null,
     num2    : null,
@@ -31,7 +34,7 @@ const storage = {
         }
     },
 }
-/** Number Calculation Function**/
+/** Number Calculations **/
 function calculate(array, operator) {
     if (operator === "+") {
         return array.reduce((total, current) => total + current);
@@ -57,11 +60,32 @@ function operate(num1, num2, operator) {
     }
 };
 
+function storeTheInformation(){
+    if(storage.num1 === null) {
+        storage.num1 = display.textContent;
+        lastOutput.textContent = display.textContent;
+        display.textContent = 0; 
+    }else if(storage.num1 !== null && storage.num2 === null) {
+        storage.num2 = display.textContent;
+        lastOutput.textContent =  storage.total;
+        display.textContent = 0;
+        storage.num1 = lastOutput.textContent;
+        if(+(storage.num2) === 0 && storage.operator === "/") {
+                alert("That's cute. You can't divide by 0.");
+                allClear();
+        }else {
+            storage.num2 = null;
+        }
+    }
+    console.log(storage)
+}
+
 /** Button Operations **/
 numButt.forEach((button) => {
     button.onclick = () => {
-        if (display.textContent === "0") {
+        if (display.textContent === "0" || tallyAll === true) {
             display.textContent = "";
+            tallyAll = false;
         }
         display.textContent += button.textContent;
     }
@@ -69,25 +93,36 @@ numButt.forEach((button) => {
 
 clearButt.onclick = () => (allClear());
 
+function allClear() {
+    storage.num1 = null;
+    storage.num2 = null;
+    display.textContent = 0;
+    lastOutput.textContent = "-";
+    storage.operator = null;
+    console.log(storage);
+}
+
 opButt.forEach((button) => {
     button.onclick = () => {
-        if(storage.num1 === null){
-            storage.num1 = display.textContent
+        if(storage.operator === null){
+            storeTheInformation();
             storage.operator = button.textContent;
-            lastOutput.textContent = display.textContent;
-            display.textContent = 0; 
-        }else if (storage.num1 !== null && storage.num2 === null ){
-            storage.num2 = display.textContent;
-            lastOutput.textContent =  storage.total;
-            display.textContent = 0;
+        }else if(storage.operator !== null && tallyAll === false){
+            storeTheInformation();
             storage.operator = button.textContent;
-            storage.num1 = lastOutput.textContent;
-            storage.num2 = null;
         }
-        // lastOutput.textContent = (storage.total + " " + storage.operator);
-        console.log(storage)
     }
 })
+
+tallyButt.onclick = () => {
+    tallyAll = true
+    if(storage.operator !== null){
+        storeTheInformation();
+        display.textContent = storage.num1;
+        storage.num1 = null;
+        lastOutput.textContent = "-";
+    }
+}
 
 backButt.onclick = () => {
     display.textContent = display.textContent.substring(0, display.textContent.length - 1)
@@ -96,28 +131,10 @@ backButt.onclick = () => {
     }
 }
 
-function allClear() {
-        storage.num1 = null;
-        storage.num2 = null;
-        display.textContent = "0";
-        lastOutput.textContent = "";
-        storage.operator = null;
+deButt.onclick = () => {
+    if(display.textContent.match(/\./i)){
+        return;
+    }else{
+        display.textContent += ".";
+    }
 }
-
-/*if (storage.num1 !== null) {
-            storage.num2 = display.textContent;
-            lastOutput.textContent = 
-                    ((operate(+(storage.num1), +(storage.num2), storage.operator))+
-                    " " + button.textContent);
-            storage.num1 = lastOutput.textContent.slice(0, -2);
-            storage.operator = button.textContent;
-            display.textContent = "0";
-        } else if(storage.operator === "="){
-            console.log("butt push")
-            //YOU ARE HERE DUMMY. THIS IS YOUR NEXT TASK
-        } else {
-            lastOutput.textContent = (display.textContent + " " + button.textContent);
-            storage.operator = button.textContent;
-            storage.num1 = display.textContent;
-            display.textContent = "0";
-        } */
