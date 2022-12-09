@@ -31,9 +31,9 @@ function calculate(array, operator) {
         return array.reduce((total, current) => total + current);
     } else if (operator === "-") {
         return array.reduce((total, current) => total - current);
-    } else if (operator === "*") {
+    } else if (operator === "x") {
         return array.reduce((total, current) => total * current);
-    } else if (operator === "/") {
+    } else if (operator === "÷") {
         return array.reduce((total, current) => total / current);
     }
 };
@@ -44,9 +44,9 @@ function operate(num1, num2, operator) {
             return calculate([num1, num2], operator);
         case "-":
             return calculate([num1, num2], operator);
-        case "*":
+        case "x":
             return calculate([num1, num2], operator);
-        case "/":
+        case "÷":
                 return calculate([num1, num2], operator);
     }
 };
@@ -62,7 +62,7 @@ function storeTheInformation(){
         display.textContent = 0;
         storage.num1 = lastOutput.textContent;
      
-        if(+(storage.num2) === 0 && storage.operator === "/") {
+        if(+(storage.num2) === 0 && storage.operator === "÷") {
             alert("That's cute. You can't divide by 0.");
             allClear();
         }else {
