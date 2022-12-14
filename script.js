@@ -27,29 +27,19 @@ const storage = {
 
 /** Number Calculations **/
 function calculate(array, operator) {
-    if (operator === "+") {
-        return array.reduce((total, current) => total + current);
-    } else if (operator === "-") {
-        return array.reduce((total, current) => total - current);
-    } else if (operator === "x") {
-        return array.reduce((total, current) => total * current);
-    } else if (operator === "÷") {
-        return array.reduce((total, current) => total / current);
-    }
-};
+    const operation = {
+        "+": (total, current) => total + current,
+        "-": (total, current) => total - current,
+        "x": (total, current) => total * current,
+        "÷": (total, current) => total / current
+    }[operator];
+
+    return array.reduce(operation);
+}
 
 function operate(num1, num2, operator) {
-    switch (operator) {
-        case "+":
-            return calculate([num1, num2], operator);
-        case "-":
-            return calculate([num1, num2], operator);
-        case "x":
-            return calculate([num1, num2], operator);
-        case "÷":
-                return calculate([num1, num2], operator);
-    }
-};
+    return calculate([num1, num2], operator);
+}
 
 function storeTheInformation(){
     if(storage.num1 === null) {
